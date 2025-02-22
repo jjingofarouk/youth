@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Youth4GreenUganda</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Gallery-specific styles */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .modal-caption {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -2rem;
+            right: -2rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .load-more {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .load-more:hover {
+            background: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .gallery-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="get-involved.html">Get Involved</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1 data-aos="fade-up">Our Impact in Pictures</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Visual Journey of Youth4GreenUganda</p>
+    </header>
+
+    <section class="section">
+        <div class="gallery-container">
+            <div class="gallery-filters" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="medical">Medical Initiatives</button>
+                <button class="filter-btn" data-filter="environmental">Environmental Projects</button>
+                <button class="filter-btn" data-filter="community">Community Outreach</button>
+                <button class="filter-btn" data-filter="education">Education & Training</button>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Medical Initiatives -->
+                <div class="gallery-item" data-category="medical" data-aos="fade-up">
+                    <img src="/api/placeholder/400/400" alt="Medical Waste Management">
+                    <div class="gallery-item-overlay">
+                        <h3>Medical Waste Management</h3>
+                        <p>Implementation of sustainable waste disposal systems</p>
+                    </div>
+                </div>
+
+                <!-- Environmental Projects -->
+                <div class="gallery-item" data-category="environmental" data-aos="fade-up">
+                    <img src="/api/placeholder/400/400" alt="Solar Panel Installation">
+                    <div class="gallery-item-overlay">
+                        <h3>Green Energy Initiative</h3>
+                        <p>Solar panel installation at rural health centers</p>
+                    </div>
+                </div>
+
+                <!-- Community Outreach -->
+                <div class="gallery-item" data-category="community" data-aos="fade-up">
+                    <img src="/api/placeholder/400/400" alt="Community Workshop">
+                    <div class="gallery-item-overlay">
+                        <h3>Community Engagement</h3>
+                        <p>Health and environmental awareness workshops</p>
+                    </div>
+                </div>
+
+                <!-- Education & Training -->
+                <div class="gallery-item" data-category="education" data-aos="fade-up">
+                    <img src="/api/placeholder/400/400" alt="Medical Training">
+                    <div class="gallery-item-overlay">
+                        <h3>Medical Staff Training</h3>
+                        <p>Environmental health practices workshop</p>
+                    </div>
+                </div>
+
+                <!-- Add more gallery items for each category -->
+            </div>
+
+            <button class="load-more" data-aos="fade-up">Load More</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Youth4GreenUganda. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Filter items
+                    const filter = button.getAttribute('data-filter');
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Modal functionality
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const overlay = item.querySelector('.gallery-item-overlay');
+                    
+                    const modal = document.createElement('div');
+                    modal.className = 'modal';
+                    modal.innerHTML = `
+                        <div class="modal-content">
+                            <button class="modal-close">&times;</button>
+                            <img src="${img.src}" alt="${img.alt}" class="modal-image">
+                            <div class="modal-caption">${overlay.innerHTML}</div>
+                        </div>
+                    `;
+
+                    document.body.appendChild(modal);
+
+                    modal.querySelector('.modal-close').addEventListener('click', () => {
+                        modal.remove();
+                    });
+
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.remove();
+                        }
+                    });
+                });
+            });
+
+            // Load More functionality
+            const loadMore = document.querySelector('.load-more');
+            let currentItems = 8;
+            
+            loadMore.addEventListener('click', () => {
+                const array = [...document.querySelectorAll('.gallery-item')];
+                const hiddenItems = array.slice(currentItems, currentItems + 4);
+                
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                
+                currentItems += 4;
+                
+                if (currentItems >= array.length) {
+                    loadMore.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
